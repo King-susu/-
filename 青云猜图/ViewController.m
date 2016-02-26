@@ -120,7 +120,7 @@
 //下一题
 - (void)nBtn{
     _tipBtn.enabled = YES;
-    [_optionView removeFromSuperview];
+//    [_optionView removeFromSuperview];
     //定义一个bool值来表示通关
     __block BOOL isPass = YES;
     [self.question enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -133,7 +133,9 @@
     //通关
     if (isPass) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"恭喜你通关了，是否再来一次" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            exit(0);
+        }];
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [self.question enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 Guessmodel *question = (Guessmodel *)obj;
@@ -148,7 +150,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    
+    [_optionView removeFromSuperview];
     //更改索引
     index++;
     [self updateImage];
